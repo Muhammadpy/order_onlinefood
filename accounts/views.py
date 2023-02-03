@@ -4,6 +4,7 @@ from .forms import UserForm
 from .models import User, UserProfile
 from django.contrib import messages, auth
 from vendor.forms import VendorForm
+from vendor.models import Vendor
 
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .utils import detectUser, sent_verification_email
@@ -164,15 +165,16 @@ def myAccount(request):
     return redirect(redirectUrl)
 
 
-@login_required(login_url='login')
+@login_required(login_url='accounts:login')
 @user_passes_test(check_role_customer)
 def custDashboard(request):
     return render(request, 'accounts/custDashboard.html')
 
 
-@login_required(login_url='login')
+@login_required(login_url='accounts:login')
 @user_passes_test(check_role_vendor)
 def vendorDashboard(request):
+
     return render(request, 'accounts/vendorDashboard.html')
 
 
