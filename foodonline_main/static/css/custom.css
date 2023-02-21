@@ -24,3 +24,15 @@
     animation-duration: 8s;
     z-index: 99;
 }
+
+.btn-info {
+    color: #fff;
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.btn.btn-info {
+    padding: 2px 1.75em;
+    font: size 12px;
+    cursor: pointer;
+}
