@@ -11,5 +11,5 @@ class CartAdmin(admin.ModelAdmin):
 #     list_display = ('tax_type', 'tax_percentage', 'is_active')
 
 
-admin.site.register(Cart)
+admin.site.register(Cart, CartAdmin)
 # admin.site.register(Tax, TaxAdmin)
