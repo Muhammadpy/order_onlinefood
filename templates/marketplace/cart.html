@@ -19,30 +19,36 @@
                         <div class="tab-content">
                             <div id="home" class="tab-pane in active">
                                 <div class="menu-itam-holder">
+                                    <div class="text-center p-5" id="empty-cart" style="display:none;">
+                                        <h3> Cart is empty</h3>
+                                    </div>
                                     
                                     <div id="menu-item-list-6272" class="menu-itam-list">
                                         
                                         <ul>
                                             {% if cart_items %}
-                                                {% for cart in cart_items %}
-                                                <li>
-                                                    <div class="image-holder"> <img src="{{ cart.fooditem.image.url }}" alt=""></div>
+                                                {% for item in cart_items %}
+                                                <li id="cart-item-{{item.id}}">
+                                                    <div class="image-holder"> <img src="{{ item.fooditem.image.url }}" alt=""></div>
                                                     <div class="text-holder">
-                                                        <h6>{{ cart.fooditem }}</h6>
-                                                        <span>{{ cart.fooditem.description }}</span>
+                                                        <h6>{{ item.fooditem }}</h6>
+                                                        <span>{{ item.fooditem.description }}</span>
+                                                        <a href="{% url 'marketplace:vendor_detail' item.fooditem.vendor.vendor_slug %}" class="badge badge-warning">{{ item.fooditem.vendor }}</a>
                                                     </div>
                                                     <div class="price-holder">
-                                                        <span class="price">${{ cart.fooditem.price }}</span>
+                                                        <span class="price">${{ item.fooditem.price }}</span>
 
-                                                        <a href="#" class="decrease_cart"  data-id="{{ cart.fooditem.id }}" data-url="{% url 'marketplace:decrease_cart' cart.fooditem.id %}" style="margin-right: 28px;"><i class="icon-minus text-color"></i></a>
-                                                        <label id="qty-{{cart.fooditem.id}}">0</label>
-                                                        <a href="#" class="add_to_cart" data-id="{{cart.fooditemd.id }}" data-url="{% url 'marketplace:add_to_cart' cart.fooditem.id %}"><i class="icon-plus4 text-color"></i></a>
-                                                        
+                                                        <a href="#" class="decrease_cart"  data-id="{{ item.fooditem.id }}" id="{{item.id}}" data-url="{% url 'marketplace:decrease_cart' item.fooditem.id %}" style="margin-right: 28px;"><i class="icon-minus text-color"></i></a>
+                                                        <label id="qty-{{ item.fooditem.id }}">0</label>
+                                                        <a href="#" class="add_to_cart" data-id="{{item.fooditemd.id }}"  id="{{item.id}}" data-url="{% url 'marketplace:add_to_cart' item.fooditem.id %}"><i class="icon-plus4 text-color"></i></a>
+                                                        <a href="#" class="delete_cart" data-id="{{item.id }}" data-url="{% url 'marketplace:delete_cart' item.id %}"><i class="icon-delete text-color"></i></a>
                                                     </div>
                                                 </li>
                                                 {% endfor %}
                                             {% else %}
-                                                
+                                                <div class="text-center p-5">
+                                                    <h3> Cart is empty</h3>
+                                                </div>
                                             
                                             {% endif %}
                                         </ul>
@@ -78,7 +84,7 @@
                                                 Subtotal
                                                 <span class="price float-right">
                                                     <span class="currency">$</span>
-                                                    <span id=Subtotal></span>
+                                                    <span id="subtotal">{{ subtotal }}</span>
                                                 </span>
 
                                             </li>
@@ -86,14 +92,14 @@
                                                 Tax
                                                 <span class="price float-right">
                                                     <span class="currency">$</span>
-                                                    <span id="tax"></span>
+                                                    <span id="tax">{{ tax }}</span>
                                                 </span>
                                             </li>
                                             <li style="list-style-type: none;" >
                                                 Total
-                                                <span class="total">
-                                                    <span class="price float-right">$</span>
-                                                    <span id="total"></span>
+                                                <span class="price float-right">
+                                                    <span class="currency">$</span>
+                                                    <span id="total">{{ grand_total }}</span>
                                                 </span>
                                             </li>
                                         </ul>
