@@ -161,7 +161,7 @@ def logout(request):
     return redirect('accounts:login')
 
 
-@login_required(login_url='login')
+@login_required(login_url='accounts:login')
 def myAccount(request):
     user = request.user
     redirectUrl = detectUser(user)
