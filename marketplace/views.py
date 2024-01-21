@@ -170,6 +170,7 @@ def search(request):
         context = {
             'vendors' : vendors,
             'vendor_count' : vendor_count,
+            'source_location': address,
             
         }
         
